@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="wrapper">
+
+        <div class="header-upper">
+            <div class="header-upper__contact">
+                <p><strong>PHONE</strong> +381 11 402 93 18, +381 62 320 212</p>
+                <p><strong>EMAIL</strong> OFFICE@HABITAT.RS</p>
+            </div>
+            <div class="header-upper__lang">
+                <ul>
+                    <li><a href="/en">EN</a></li>
+                    <li><strong>|</strong></li>
+                    <li><a href="/sr">SR</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <div class="header-main__logo">
+                <a href="/index.html" class="brand">
+                    <img src="../../../assets/images/logo.png"
+                        alt="Logo of the company displayed in the navigation menu.">
+                </a>
+            </div>
+            <div class="header-main__nav">
+                <ul>
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:
+                        true}"><a [routerLink]="['/home']">Home</a></li>
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:
+                        true}"><a [routerLink]="['/properties']">Properties</a></li>
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:
+                        true}"><a [routerLink]="['/about']">About us</a></li>
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:
+                        true}"><a [routerLink]="['/faq']">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="hamburger-menu">
+                <div class="hamburger-menu__inner"></div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

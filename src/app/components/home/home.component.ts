@@ -9,14 +9,7 @@ import { PropertyService } from 'src/app/services/property.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  filter : RequestBody = {
-    building_type: null,
-    min_price: null,
-    max_price: null,
-    size_min: null,
-    size_max: null,
-    params: {}
-  };
+  filter = new RequestBody();
 
   constructor(
     private propertyService : PropertyService,
@@ -28,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   search(){
     this.propertyService.getProperties(this.filter, 1).subscribe(res => {
-      this.propertyService.filtered_properties = res.data;
+      this.propertyService.response = res;
+      this.propertyService.filter_body = this.filter;
       this.router.navigate(['properties']);
     })
   }

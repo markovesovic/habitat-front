@@ -887,7 +887,8 @@ main {
 	justify-content: center;
 	align-items: center;
 	max-width: 160rem;
-	margin: 0 auto
+	margin: 0 auto;
+	border-radius: 0.3%;
 }
 
 .properties-container {
@@ -1045,7 +1046,7 @@ main {
 	font-size: 1.5rem
 }
 
-.__ul {
+.post-share__ul {
 	margin-top: .5rem
 }
 
@@ -1060,10 +1061,6 @@ main {
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: 1rem
-}
-
-.post-share__link:hover{
-	cursor: pointer;
 }
 
 .post-share__ul a:nth-child(2) {
@@ -1178,8 +1175,4 @@ main {
 
 .about__bold {
 	font-weight: 600
-}
-
-agm-map {
-	height: 300px;
 }

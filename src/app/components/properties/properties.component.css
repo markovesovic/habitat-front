@@ -638,6 +638,7 @@ header {
 	display: inline-block
 }
 
+
 .sidebar {
 	width: 20%;
 	margin-left: 2.5rem;
@@ -694,6 +695,16 @@ header {
 	padding: .5rem
 }
 
+
+.property-search-btn:hover {
+	width: 100%;
+	display: inline-block;
+	border: 0;
+	padding: .5rem;
+	background: rgba(0, 36, 59, 0.979);
+	color: #fff;
+}
+
 .is-office,
 .is-residential {
 	display: none
@@ -745,7 +756,7 @@ header {
 
 .properties-cards {
 	display: flex;
-	flex-wrap: wrap
+	flex-wrap: wrap;
 }
 
 @media screen and (max-width:500px) {
@@ -756,7 +767,9 @@ header {
 
 .properties-card {
 	max-width: 16rem;
-	margin-bottom: 1rem
+	margin-bottom: 1rem;
+	margin-left: 0.5rem;
+	border-radius: 1rem;
 }
 
 .properties-card:not(:last-child) {
@@ -1174,4 +1187,12 @@ main {
 
 .about__bold {
 	font-weight: 600
+}
+
+agm-map {
+	height: 300px;
+}
+
+a:hover {
+	cursor: pointer;
 }

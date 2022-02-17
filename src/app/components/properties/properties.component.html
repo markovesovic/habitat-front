@@ -9,155 +9,134 @@
 </head>
 
 <body>
-    <header class="wrapper">
-
-        <div class="header-upper">
-            <div class="header-upper__contact">
-                <p><strong>PHONE</strong> +381 11 402 93 18, +381 62 320 212</p>
-                <p><strong>EMAIL</strong> OFFICE@HABITAT.RS</p>
-            </div>
-            <div class="header-upper__lang">
-                <ul>
-                    <li><a href="/en">EN</a></li>
-                    <li><strong>|</strong></li>
-                    <li><a href="/sr">SR</a></li>
-                </ul>
-            </div>
+    <agm-map [latitude]="44.8125" [longitude]="20.4612">
+        <div *ngFor="let property of properties">
+            <agm-marker [latitude]="property.location[0]" [longitude]="property.location[1]" [markerClickable]="true">
+                <agm-info-window>
+                    <strong>{{property.full_address}}</strong>
+                    <br>
+                    <a [routerLink]="['/details/'+property._id]" target="_blank">Click here for property details!</a>
+                  </agm-info-window>
+            </agm-marker>
         </div>
+    </agm-map>
 
-        <div class="header-main">
-            <div class="header-main__logo">
-                <a href="/index.html" class="brand">
-                    <img src="../../../assets/images/logo.png"
-                        alt="Logo of the company displayed in the navigation menu.">
-                </a>
-            </div>
-            <div class="header-main__nav">
-                <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/properties-map.html">Properties</a></li>
-                    <li><a href="/about.html">About us</a></li>
-                    <li><a href="">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="hamburger-menu">
-                <div class="hamburger-menu__inner"></div>
-            </div>
-        </div>
-    </header>
-
-    <figure id="google-map">
-
-    </figure>
-
+    <br>
 
     <div class="properties-container">
         <aside class="sidebar">
             <h3>Refine your search</h3>
-            <form action="" id="propertyform-refine">
+            <div action="" id="propertyform-refine">
 
                 <div class="input-container">
                     <div class="form__input">
-                        <input type="number" class="form-control" placeholder="Price min" name="price_min">
+                        <input type="number" class="form-control" placeholder="Price min" name="price_min"
+                            [(ngModel)]="filter_body.price_min">
                         <span class="input__sign">€</span>
                     </div>
                     <div class="form__input">
-                        <input type="number" class="form-control" placeholder="Price max" name="price_max">
+                        <input type="number" class="form-control" placeholder="Price max" name="price_max"
+                            [(ngModel)]="filter_body.price_max">
                         <span class="input__sign">€</span>
                     </div>
                 </div>
                 <div class="input-container">
                     <div class="form__input">
-                        <input type="number" class="form-control" placeholder="Size min" name="size_min">
+                        <input type="number" class="form-control" placeholder="Size min" name="size_min"
+                            [(ngModel)]="filter_body.size_min">
                         <span class="input__sign">m<sup>2</sup></span>
                     </div>
                     <div class="form__input">
-                        <input type="number" class="form-control" placeholder="Size max" name="size_max">
+                        <input type="number" class="form-control" placeholder="Size max" name="size_max"
+                            [(ngModel)]="filter_body.size_max" [ngModelOptions]="{standalone: true}">
                         <span class="input__sign">m<sup>2</sup></span>
                     </div>
                 </div>
 
-                <select id="property-rent-sale" name="" form="propertyform-refine">
-                    <option value="1">Rent</option>
-                    <option value="2">Sale</option>
+                <select id="property-rent-sale" name="1" [(ngModel)]="filter_body.params.for_rent">
+                    <option value=null disabled selected>Choose renting or sale</option>
+                    <option [ngValue]=true>Rent</option>
+                    <option [ngValue]=false>Sale</option>
                 </select>
 
-                <select id="property-building-type" name="" form="propertyform-refine">
-                    <option value="" disabled selected>Choose building type</option>
-                    <option value="1">Residental ()</option>
-                    <option value="2">Office ()</option>
-                    <option value="3">Retail ()</option>
-                    <option value="4">Industrial and Warehouse ()</option>
+                <select id="property-building-type" name="2" [(ngModel)]="filter_body.params.building_type">
+                    <option value=null disabled selected>Choose building type</option>
+                    <option value="residential">Residential ()</option>
+                    <option value="office">Office ()</option>
+                    <option value="retail">Retail ()</option>
+                    <option value="industrial">Industrial and Warehouse ()</option>
                 </select>
 
                 <div class="sub">
-                    <select id="property-type" name="" form="propertyform-refine">
-                        <option value="" disabled selected>Choose property type</option>
+                    <select id="property-type" name="3" [(ngModel)]="filter_body.params.property_type">
+                        <option value=null disabled selected>Choose property type</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="mixed_use_apartment">Mixed-Use Apartment</option>
+                        <option value="duplex">Duplex</option>
                     </select>
                 </div>
 
-                <div class="is-residential">
-
+                <div *ngIf="filter_body.params.building_type=='residential'">
                     <div class="residential-features">
-                        <select name="" id="residential-feature" form="propertyform-refine">
-                            <option value="" disabled selected>Bedrooms</option>
-                            <option value="1">1+ ()</option>
-                            <option value="2">2+ ()</option>
-                            <option value="3">3+ ()</option>
-                            <option value="4">4+ ()</option>
-                            <option value="5">5+ ()</option>
+                        <select name="4" id="residential-feature" [(ngModel)]="filter_body.params.bedrooms">
+                            <option value=null disabled selected>Bedrooms</option>
+                            <option [ngValue]=1>1 ()</option>
+                            <option [ngValue]=2>2 ()</option>
+                            <option [ngValue]=3>3 ()</option>
+                            <option [ngValue]=4>4 ()</option>
+                            <option [ngValue]=5>5 ()</option>
                         </select>
                     </div>
 
                     <div class="residential-features">
-                        <select name="" id="residential-feature" form="propertyform-refine">
-                            <option value="" disabled selected>Bathrooms</option>
-                            <option value="1">1+ ()</option>
-                            <option value="2">2+ ()</option>
-                            <option value="3">3+ ()</option>
-                            <option value="4">4+ ()</option>
-                            <option value="5">5+ ()</option>
+                        <select name="5" id="residential-feature" [(ngModel)]="filter_body.params.bathrooms">
+                            <option value=null disabled selected>Bathrooms</option>
+                            <option [ngValue]=1>1 ()</option>
+                            <option [ngValue]=2>2 ()</option>
+                            <option [ngValue]=3>3 ()</option>
+                            <option [ngValue]=4>4 ()</option>
+                            <option [ngValue]=5>5 ()</option>
                         </select>
                     </div>
 
-                    <div class="residential-features">
-                        <select name="" id="residential-feature" form="propertyform-refine">
-                            <option value="" disabled selected>Furnished</option>
-                            <option value="1">Furnished ()</option>
-                            <option value="2">Unfurnished ()</option>
-                            <option value="3">Partially furnished ()</option>
+                    <!-- <div class="residential-features">
+                        <select name="" id="residential-feature" [(ngModel)]="filter_body.params.furnishment.en">
+                            <option value=null disabled selected>Furnishment type</option>
+                            <option value="furnished">Furnished ()</option>
+                            <option value="unfurnished">Unfurnished ()</option>
+                            <option value="partially_furnished">Partially furnished ()</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="residential-features">
-                        <select name="" id="residential-feature" form="propertyform-refine">
-                            <option value="" disabled selected>Floor type</option>
-                            <option value="1">Ground floor ()</option>
-                            <option value="2">Mezzanine floor (1st floor) ()</option>
-                            <option value="3">Middle floors ()</option>
-                            <option value="4">Top floors ()</option>
+                        <select name="6" id="residential-feature" [(ngModel)]="filter_body.params.floor_type">
+                            <option value=null disabled selected>Floor type</option>
+                            <option value="ground">Ground floor ()</option>
+                            <option value="mezzanine">Mezzanine floor (1st floor) ()</option>
+                            <option value="middle">Middle floors ()</option>
+                            <option value="top">Top floors ()</option>
                         </select>
                     </div>
 
                 </div>
 
-                <div class="is-office">
+                <div *ngIf="filter_body.params.building_type=='office'">
 
                     <div class="office-features">
-                        <select name="" id="office-feature" form="propertyform-refine">
-                            <option value="" disabled selected>Distribution</option>
-                            <option value="1">Open plan ()</option>
-                            <option value="2">Walled ()</option>
+                        <select name="7" id="office-feature" [(ngModel)]="filter_body.params.distribution">
+                            <option value=null disabled selected>Distribution</option>
+                            <option value="">Open plan ()</option>
+                            <option value="walled">Walled ()</option>
                         </select>
                     </div>
 
                     <div class="office-features">
-                        <select name="" id="office-feature" form="propertyform-refine">
+                        <select name="" id="office-feature" [(ngModel)]="filter_body.params.floor_type">
                             <option value="" disabled selected>Floor type</option>
-                            <option value="1">Ground floor ()</option>
-                            <option value="2">Mezzanine floor (1st floor) ()</option>
-                            <option value="3">Middle floors ()</option>
-                            <option value="4">Top floors ()</option>
+                            <option value="ground">Ground floor ()</option>
+                            <option value="mezzanine">Mezzanine floor (1st floor) ()</option>
+                            <option value="middle">Middle floors ()</option>
+                            <option value="top">Top floors ()</option>
                         </select>
                     </div>
 
@@ -166,80 +145,85 @@
                 <div class="checkboxes">
 
                     <div>
-                        <input type="checkbox" id="" name="">
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.elevator">
                         <label for="elevator">Elevator ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.garage">
                         <label for="garage">Garage ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.parking">
                         <label for="parking">Parking ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.terrace">
                         <label for="terrace">Terrace ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
-                        <label for="terrace">Yard ()</label>
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.yard">
+                        <label for="yard">Yard ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
-                        <label for="terrace">Swimming pool ()</label>
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.swimming_pool">
+                        <label for="swimming_pool">Swimming pool ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
-                        <label for="terrace">Doorkeeper ()</label>
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.doorkeeper">
+                        <label for="doorkeeper">Doorkeeper ()</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" id="" name="">
-                        <label for="terrace">Security ()</label>
+                        <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.building_security">
+                        <label for="building_security">Building security ()</label>
                     </div>
 
                 </div>
+                
+                <button type="submit" class="property-search-btn" (click)="search()">Search</button>
 
-                <button type="submit" class="property-search-btn">Search</button>
-
-            </form>
+            </div>
         </aside>
 
         <div class="properties">
 
-            <div class="properties-heading">
+            <div class="properties-heading" *ngIf="count>0">
                 <div class="properties-info__criteria">
-                    <span>Properties matching criteria: <span class="properties-info__matches">100</span></span>
+                    <span>Properties matching criteria: <span class="properties-info__matches">{{count}}</span></span>
                 </div>
                 <div class="properties-info__sort">
-                    <select id="property-info-sort" name="" form="">
-                        <option value="1">Our rating</option>
-                        <option value="2">Price ascending</option>
-                        <option value="3">Price descending</option>
+                    <select id="property-info-sort" name="" [(ngModel)]="filter_body.sort" (change)="sortSearch($event)">
+                        <option value="rating">Our rating</option>
+                        <option value="asc">Price ascending</option>
+                        <option value="desc">Price descending</option>
                     </select>
+                </div>
+                <div class="pagination-class">
+                    <mat-paginator [length]="length" [pageIndex]="pageIndex-1" [pageSize]="pageSize" [pageSizeOptions]="[20]"
+                        (page)="pageEvent = getServerData($event)" aria-label="Select page">
+                    </mat-paginator>
                 </div>
             </div>
 
-            <div class="properties-no-result">
+            <div *ngIf="count==0">
                 <p>No properties found matching this criteria.</p>
             </div>
 
-            
+
             <div class="properties-cards">
                 <div *ngFor="let property of properties">
                     <div class="properties-card">
-    
-                        <div class="swiper mySwiper">
-    
+
+                        <!-- <div class="swiper mySwiper">
+
                             <div class="swiper-wrapper">
-    
+
                                 <div class="properties-card__img swiper-slide">
                                     <img src="../../../assets/images/card-img-1.png" alt="">
                                 </div>
@@ -249,14 +233,24 @@
                                 <div class="properties-card__img swiper-slide">
                                     <img src="../../../assets/images/404.jpg" alt="">
                                 </div>
-    
+
                             </div>
-    
+
                             <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
-    
-                        </div>
-                        <a href="#" class="properties-card-link-block" target="_blank">
+                            <div class="swiper-button-next"></div> 
+                        </div>-->
+                        <swiper fxFlex="auto" [config]="config" (indexChange)="onIndexChange($event)">
+                            <div *ngFor="let image of property.images" class="swiper-slide cursor-pointer">
+                                <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill class="mx-2">
+                                    <!-- Your content goes here -->
+                                    <!-- <p>{{image.picture_file_name}}</p> -->
+                                    <div class="properties-card__img swiper-slide">
+                                        <img src="../../../assets/images/card-img-1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </swiper>
+                        <a (click)="checkDetails(property)" class="properties-card-link-block" target="_blank">
                             <div class="properties-card-location">
                                 <span class="properties-card-location__name">{{property.city_area}}</span>
                                 <span class="properties-card-location__price">{{property.price}} €</span>
@@ -264,7 +258,8 @@
                             <div class="properties-card-info">
                                 <div class="properties-card-info__container">
                                     <span class="properties-card-info__text">Size: </span>
-                                    <span class="properties-card-info__data">{{property.square_area}}m<sup>2</sup></span>
+                                    <span
+                                        class="properties-card-info__data">{{property.square_areas ? property.square_areas[0].area : property.area}}m<sup>2</sup></span>
                                 </div>
                                 <div class="properties-card-info__container">
                                     <span class="properties-card-info__text">Bedrooms: </span>
@@ -284,55 +279,14 @@
                 </div>
             </div>
 
-            <div class="pagination">
-                <ul>
-                    <!--pages or li are comes from javascript -->
-                </ul>
+            <div class="pagination-class">
+                <mat-paginator [length]="length" [pageIndex]="pageIndex-1" [pageSize]="pageSize" [pageSizeOptions]="[20]"
+                    (page)="pageEvent = getServerData($event)" aria-label="Select page">
+                </mat-paginator>
             </div>
 
         </div>
     </div>
-
-
-    <footer class="wrapper">
-        <div class="footer-inner">
-            <p>Habitat Real Estate, Teodora Drajzera 11L, 11000 Beograd</p>
-            <p><strong>Phone</strong> +381 11 402 93 18 | +381 62 320 212</p>
-            <p><strong>Email</strong> office@habitat.rs</p>
-            <p>Register of Real Estate Brokers number 833</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/7.1.0/swiper-bundle.min.js"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgCBvfADdwQsJpnIV6v1MzCzBGbCTpXJ4&callback=initMap&libraries=&v=weekly"
-        async></script>
-    <script src="dist/js/app.min.js"></script>
-    <script>
-        function initMap() {
-            // The location
-            const location = { lat: 44.81624342282334, lng: 20.46045706085036 };
-            // The map
-            const map = new google.maps.Map(document.getElementById("google-map"), {
-                zoom: 12,
-                center: location,
-            });
-            // The marker
-            const marker = new google.maps.Marker({
-                position: location,
-                map: map,
-                url: 'http://www.google.com/'
-            });
-            // Url
-            google.maps.event.addListener(marker, 'click', function () {
-                window.location.href = this.url;
-                window.open(this.url, '_blank');
-            });
-        }
-    </script>
 </body>
 
 </html>

@@ -8,65 +8,27 @@
 
 
 <body>
-  <header class="wrapper">
-
-    <div class="header-upper">
-      <div class="header-upper__contact">
-        <p><strong>PHONE</strong> +381 11 402 93 18, +381 62 320 212</p>
-        <p><strong>EMAIL</strong> OFFICE@HABITAT.RS</p>
-      </div>
-      <div class="header-upper__lang">
-        <ul>
-          <li><a href="/en">EN</a></li>
-          <li><strong>|</strong></li>
-          <li><a href="/sr">SR</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="header-main">
-      <div class="header-main__logo">
-        <a href="/index.html" class="brand">
-          <img src="dist/images/logo.png" alt="Logo of the company displayed in the navigation menu.">
-        </a>
-      </div>
-      <div class="header-main__nav">
-        <ul>
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/properties-map.html">Properties</a></li>
-          <li><a href="/about.html">About us</a></li>
-          <li><a href="">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="hamburger-menu">
-        <div class="hamburger-menu__inner"></div>
-      </div>
-    </div>
-  </header>
-
   <div class="post-wrapper wrapper">
     <div class="post-main">
       <div class="post-images">
-        <div class="swiper swiper-post-images">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-1.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-2.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-3.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-4.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-1.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-2.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-3.jpg" class="post__image" alt=""></div>
-            <div class="swiper-slide swiper-post"><img src="./dist/images/post-4.jpg" class="post__image" alt=""></div>
+        <swiper fxFlex="auto" [config]="config" (indexChange)="onIndexChange($event)">
+          <div *ngFor="let image of property.private_images" class="swiper-slide cursor-pointer">
+              <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill class="mx-2">
+                  <!-- Your content goes here -->
+                  <!-- <p>{{image.picture_file_name}}</p> -->
+                  <div class="properties-card__img swiper-slide">
+                      <img src="../../../assets/images/card-img-1.png" alt="">
+                  </div>
+              </div>
           </div>
-          <div class="swiper-pagination"></div>
-        </div>
+      </swiper>
       </div>
       <div class="post-location">
-        <h1 class="post-location__title">534 Roosevelt Street</h1>
-        <h3 class="post-location__pin">Dedinje</h3>
-        <span class="post-location__id">Property ID: <span class="post-location__id--number">HR1005</span></span>
-        <span class="post-location__price">350.000 &euro;</span>
-        <p class="post-location__description">Curabitur odio nibh, luctus non pulvinar a, ultricies ac diam. Donec neque massa, viverra interdum eros ut, imperdiet pellentesque mauris. Proin sit amet scelerisque risus. Donec semper semper erat ut mollis. Curabitur suscipit, justo eu dignissim lacinia ante sapien pharetra duin consectetur eros augue sed ex</p>
+        <h1 class="post-location__title">{{property.full_address}}</h1>
+        <h3 class="post-location__pin">{{property.city_area}}</h3>
+        <span class="post-location__id">Property ID: <span class="post-location__id--number">{{property.property_id}}</span></span>
+        <span class="post-location__price">{{property.price}} &euro;</span>
+        <p class="post-location__description">{{property.description.en}}</p>
       </div>
       <div class="post-features">
         <h3 class="post-features__title">Features</h3>
@@ -87,15 +49,17 @@
       <div class="post-map">
         <h3 class="post-map__title">Map</h3>
         <div id="post-map__map">
-          
+          <agm-map [latitude]="property.location[0]" [longitude]="property.location[1]">
+            <agm-marker [latitude]="property.location[0]" [longitude]="property.location[1]" [markerClickable]="false"></agm-marker>
+          </agm-map>
         </div>
       </div>
       <div class="post-share">
         <h3 class="post-share__title">Share this property</h3>
         <div class="post-share__ul">
-          <a href="https://api.whatsapp.com/send?text=Share this property." data-action="share/whatsapp/share" class="post-share__link"></a>
-          <a href="viber://forward?text=Check out this property" class="post-share__link"></a>
-          <a href="https://t.me/share/url?url=https://habitat.rs&text=Share this property." class="post-share__link"></a>
+          <a (click)="share(1)" class="post-share__link"></a>
+          <a (click)="share(2)" class="post-share__link"></a>
+          <a (click)="share(3)" class="post-share__link"></a>
         </div>
       </div>
     </div>
@@ -103,49 +67,20 @@
     <div class="post-sidebar">
       <h3 class="post-sidebar__title">Amenities</h3>
       <ul class="post-sidebar__ul">
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Size</span><span class="post-sidebar__list--data">180m<sup>2</sup></span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Bedrooms</span><span class="post-sidebar__list--data">4</span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Bathrooms</span><span class="post-sidebar__list--data">3</span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Toilets</span><span class="post-sidebar__list--data">0</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Size</span><span class="post-sidebar__list--data">{{property.square_areas[0].area}}<sup>2</sup></span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Bedrooms</span><span class="post-sidebar__list--data">{{property.bedrooms}}</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Bathrooms</span><span class="post-sidebar__list--data">{{property.bathrooms}}</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Toilets</span><span class="post-sidebar__list--data">{{property.toilets}}</span></li>
         <hr>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Garage</span><span class="post-sidebar__list--data">Yes</span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Parking</span><span class="post-sidebar__list--data">No</span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Terrace</span><span class="post-sidebar__list--data">2</span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Elevator</span><span class="post-sidebar__list--data">Yes</span></li>
-        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Yard</span><span class="post-sidebar__list--data">No</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Garage</span><span class="post-sidebar__list--data">{{property.garage ? "Yes" : "No"}}</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Parking</span><span class="post-sidebar__list--data">{{property.parking ? "Yes" : "No"}}</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Terrace</span><span class="post-sidebar__list--data">{{property.terraces}}</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Elevator</span><span class="post-sidebar__list--data">{{property.elevator ? "Yes" : "No"}}</span></li>
+        <li class="post-sidebar__list"><span class="post-sidebar__list--amenity">Yard</span><span class="post-sidebar__list--data">{{property.yard ? "Yes" : "No"}}</span></li>
       </ul>
     </div>
     
   </div>
-
-  <footer class="wrapper">
-    <div class="footer-inner">
-      <p>Habitat Real Estate, Teodora Drajzera 11L, 11000 Beograd</p>
-      <p><strong>Phone</strong> +381 11 402 93 18 | +381 62 320 212</p>
-      <p><strong>Email</strong> office@habitat.rs</p>
-      <p>Register of Real Estate Brokers number 833</p>
-    </div>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/7.1.0/swiper-bundle.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgCBvfADdwQsJpnIV6v1MzCzBGbCTpXJ4&callback=initMap&libraries=&v=weekly" async></script>
-  <script src="dist/js/app.min.js"></script>
-  <script>
-    function initMap() {
-  // The location of Uluru
-  const location = { lat: 44.81624342282334, lng: 20.46045706085036 }; 
-  // The map, centered at Uluru
-  const map = new google.maps.Map(document.getElementById("post-map__map"), {
-    zoom: 17,
-    center: location,
-  });
-  // The marker, positioned at Uluru
-  const marker = new google.maps.Marker({
-    position: location,
-    map: map,
-  });
-}
-  </script>
 </body>
 
 </html>

@@ -1045,7 +1045,7 @@ main {
 	font-size: 1.5rem
 }
 
-.__ul {
+.post-share__ul {
 	margin-top: .5rem
 }
 
@@ -1060,10 +1060,6 @@ main {
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: 1rem
-}
-
-.post-share__link:hover{
-	cursor: pointer;
 }
 
 .post-share__ul a:nth-child(2) {

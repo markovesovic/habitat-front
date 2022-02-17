@@ -6,43 +6,6 @@
     <title>Habitat real estate doo | Land Development, Building Restoration and Commercial and Residential Real Estate Services, Belgrade, Serbia</title>
 	</head>
 	<body>
-    <header class="wrapper">
-      <div class="header-upper">
-        <div class="header-upper__contact">
-          <p><strong>PHONE</strong> +381 11 402 93 18, +381 62 320 212</p>
-          <p><strong>EMAIL</strong> OFFICE@HABITAT.RS</p>
-        </div>
-        <div class="header-upper__lang">
-          <ul>
-            <li><a href="/en">EN</a></li>
-            <li><strong>|</strong></li>
-            <li><a href="/sr">SR</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="header-main">
-        <div class="header-main__logo">
-          <a href="/index.html" class="brand">
-            <img src="../../../assets/images/logo.png" alt="Logo of the company displayed in the navigation menu.">
-          </a>
-        </div>
-        <div class="header-main__nav">
-          <ul>
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/properties-map.html">Properties</a></li>
-            <li><a href="/about.html">About us</a></li>
-            <li><a href="">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="hamburger-menu">
-          <div class="hamburger-menu__inner"></div>
-        </div>
-      </div>
-    </header>
-
-
-
     <main>
       <div class="wrapper">
         <div class="circle">
@@ -55,19 +18,19 @@
             <h1>Find your home</h1>
             <form action="/properties-map.html" class="circle-menu-filter__form" method="post" id="propertyform">
               <label for="property">Type of building:</label>
-              <select id="property" name="propertylist" form="propertyform" [(ngModel)]="filter.building_type">
-                <option value="residental">Residental</option>
+              <select id="property" name="propertylist" form="propertyform" [(ngModel)]="filter.params.building_type" [ngModelOptions]="{standalone: true}">
+                <option value="residential">Residential</option>
                 <option value="office">Office</option>
                 <option value="retail">Retail</option>
                 <option value="industrial">Industrial and Warehouse</option>
               </select>
               <div class="input-container">
                 <div class="form__input">
-                  <input type="number" class="form-control" placeholder="Price min" name="price_min" [(ngModel)]="filter.min_price">
+                  <input type="number" class="form-control" placeholder="Price min" name="price_min" [(ngModel)]="filter.price_min">
                   <span class="input__sign">€</span>
                 </div>
                 <div class="form__input">
-                  <input type="number" class="form-control" placeholder="Price max" name="price_max" [(ngModel)]="filter.max_price">
+                  <input type="number" class="form-control" placeholder="Price max" name="price_max" [(ngModel)]="filter.price_max">
                   <span class="input__sign">€</span>
                 </div>
               </div>
@@ -81,25 +44,11 @@
                   <span class="input__sign">m<sup>2</sup></span>
                 </div>
             </div>
-            <button type="submit" class="search-btn" (click)="search()">Search</button>
+            <button type="submit" class="search-btn glow-on-hover" (click)="search()">Search</button>
             </form>
           </div>
         </div>
       </div>
     </main>
-
-    <footer class="wrapper">
-      <div class="footer-inner">
-        <p>Habitat Real Estate, Teodora Drajzera 11L, 11000 Beograd</p>
-        <p><strong>Phone</strong> +381 11 402 93 18 | +381 62 320 212</p>
-        <p><strong>Email</strong> office@habitat.rs</p>
-        <p>Register of Real Estate Brokers number 833</p>
-        </div>
-    </footer>
-
-    <script id="__bs_script__">//<![CDATA[
-      document.write("<script async src='https://HOST:3000/browser-sync/browser-sync-client.js?v=2.27.5'><\/script>".replace("HOST", location.hostname));
-  //]]></script>
-    <script src="dist/js/app.min.js"></script>
 	</body>
 </html>
