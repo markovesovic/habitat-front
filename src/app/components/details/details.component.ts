@@ -27,55 +27,59 @@ export class DetailsComponent implements OnInit {
     slidesOffsetAfter: 100,
     spaceBetween: 50,
     breakpoints: {
-        // when window width is >= 320px
-        320: {
-            slidesPerView: 1
-        }
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 1
+      }
     }
   };
-  
-  property : any;
+
+  property: any;
 
   constructor(
-    private propertyService : PropertyService,
+    private propertyService: PropertyService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {
-    if((typeof this.propertyService.response) == "undefined")
-      this.propertyService.responseObservable$.subscribe(() => {
-        this.property = this.propertyService.response.data.filter((el: any) => {
-          if(el._id ==  this.route.snapshot.paramMap.get('id')) return el;
-        })[0];
+    if ((typeof this.propertyService.response) == "undefined")
+      this.propertyService.getSingleProperty(this.route.snapshot.paramMap.get('id')!).subscribe({
+        next: (res: any) => {
+          this.property = res.property;
+        },
+        error: (error : any) => {
+          this.propertyService.errorMessage = "The property you are looking for is not on the market currently."
+          this.router.navigate(['error']);
+        }
       })
-    else{
+    else {
       this.property = this.propertyService.response.data.filter((el: any) => {
-        if(el._id ==  this.route.snapshot.paramMap.get('id')) return el;
+        if (el._id == this.route.snapshot.paramMap.get('id')) return el;
       })[0];
-    }      
+    }
   }
 
   public onIndexChange(index: number) {
     //console.log('Swiper index: ', index);
   }
 
-  public share(medium : number){
+  public share(medium: number) {
     /*
       1 - whatsapp
       2 - viber
       3 - telegram
     */
 
-      switch(medium){
-        case 1:
-          this.router.navigate([]).then(result => {  window.open(`https://api.whatsapp.com/send?text=Check out this property: ${window.location.origin+this.router.url}`, '_blank'); });
+    switch (medium) {
+      case 1:
+        this.router.navigate([]).then(result => { window.open(`https://api.whatsapp.com/send?text=Check out this property: ${window.location.origin + this.router.url}`, '_blank'); });
         break;
-        case 2:
-          this.router.navigate([]).then(result => {  window.open(`viber://forward?text=Check out this property: ${window.location.origin+this.router.url}`, '_blank'); });
+      case 2:
+        this.router.navigate([]).then(result => { window.open(`viber://forward?text=Check out this property: ${window.location.origin + this.router.url}`, '_blank'); });
         break;
-        case 3:
-          this.router.navigate([]).then(result => {  window.open(`https://t.me/share/url?url=https://habitat.rs&text=Check out this property: ${window.location.origin+this.router.url}`, '_blank'); });
+      case 3:
+        this.router.navigate([]).then(result => { window.open(`https://t.me/share/url?url=https://habitat.rs&text=Check out this property: ${window.location.origin + this.router.url}`, '_blank'); });
         break;
-      }
+    }
   }
 }

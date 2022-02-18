@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   selector: 'app-error',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor() { }
+  error_message : String;
+  constructor(private propertyService : PropertyService) { }
 
   ngOnInit(): void {
+    this.error_message = this.propertyService.errorMessage;
   }
 
 }

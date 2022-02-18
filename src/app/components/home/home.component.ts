@@ -12,19 +12,25 @@ export class HomeComponent implements OnInit {
   filter = new RequestBody();
 
   constructor(
-    private propertyService : PropertyService,
+    private propertyService: PropertyService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
-  search(){
-    this.propertyService.getProperties(this.filter, 1).subscribe(res => {
-      this.propertyService.response = res;
-      this.propertyService.filter_body = this.filter;
-      this.router.navigate(['properties']);
-    })
+  search() {
+    this.propertyService.getProperties(this.filter, 1).subscribe({
+      next: res => {
+        this.propertyService.response = res;
+        this.propertyService.filter_body = this.filter;
+        this.router.navigate(['properties']);
+      },
+      error: error => {
+        this.router.navigate(['error']);
+      }
+    }
+    )
   }
 
 }

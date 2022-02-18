@@ -38,7 +38,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'properties', component: PropertiesComponent },
   { path: 'details/:id', component: DetailsComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
+  { path: 'error', component: ErrorComponent }
 ];
 
 

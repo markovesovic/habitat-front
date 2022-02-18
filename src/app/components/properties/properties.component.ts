@@ -53,19 +53,24 @@ export class PropertiesComponent implements OnInit {
   constructor(
     private propertyService: PropertyService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if(!this.propertyService.response)
-      this.propertyService.responseObservable$.subscribe(() => {
-        this.properties = this.propertyService.response.data;
-        this.count = this.propertyService.response.count;
-        this.datasource = this.properties;
-        this.pageIndex = this.propertyService.response.page;
-        this.pageSize = this.propertyService.response.perPage;
-        this.length = this.count;
+    if (!this.propertyService.response)
+      this.propertyService.responseObservable$.subscribe({
+        next: () => {
+          this.properties = this.propertyService.response.data;
+          this.count = this.propertyService.response.count;
+          this.datasource = this.properties;
+          this.pageIndex = this.propertyService.response.page;
+          this.pageSize = this.propertyService.response.perPage;
+          this.length = this.count;
+        },
+        error: error => {
+          this.router.navigate(['error'])
+        }
       });
-    else{
+    else {
       this.properties = this.propertyService.response.data;
       this.count = this.propertyService.response.count;
       this.datasource = this.properties;
@@ -79,38 +84,53 @@ export class PropertiesComponent implements OnInit {
   }
 
   search() {
-    this.propertyService.getProperties(this.filter_body, 1).subscribe(res => {
-      this.propertyService.response = res;
-      this.properties = this.propertyService.response.data;
-      this.count = this.propertyService.response.count;
-      this.datasource = this.properties;
-      this.pageIndex = 1;
-      this.pageSize = this.propertyService.response.perPage;
-      this.length = this.count;
+    this.propertyService.getProperties(this.filter_body, 1).subscribe({
+      next: res => {
+        this.propertyService.response = res;
+        this.properties = this.propertyService.response.data;
+        this.count = this.propertyService.response.count;
+        this.datasource = this.properties;
+        this.pageIndex = 1;
+        this.pageSize = this.propertyService.response.perPage;
+        this.length = this.count;
 
-      this.pagination_filter_body = JSON.parse(JSON.stringify(this.filter_body)); // deep copy
+        this.pagination_filter_body = JSON.parse(JSON.stringify(this.filter_body)); // deep copy
+      },
+      error: error => {
+        this.router.navigate(['error']);
+      }
     })
   }
 
   public getServerData(event: PageEvent) {
-    this.propertyService.getProperties(this.pagination_filter_body, event.pageIndex + 1).subscribe(res => {
-      this.propertyService.response = res;
-      this.properties = this.propertyService.response.data;
-      this.count = this.propertyService.response.count;
-      this.datasource = this.properties;
-      this.pageIndex = this.propertyService.response.page;
-      this.pageSize = this.propertyService.response.perPage;
-      this.length = this.count;
+    this.propertyService.getProperties(this.pagination_filter_body, event.pageIndex + 1).subscribe({
+      next: res => {
+        this.propertyService.response = res;
+        this.properties = this.propertyService.response.data;
+        this.count = this.propertyService.response.count;
+        this.datasource = this.properties;
+        this.pageIndex = this.propertyService.response.page;
+        this.pageSize = this.propertyService.response.perPage;
+        this.length = this.count;
+      },
+      error: error => {
+        this.router.navigate(['error']);
+      }
     })
     return event;
   }
 
   public sortSearch(event: any) {
     this.pagination_filter_body.sort = event.target.value;
-    this.propertyService.getProperties(this.pagination_filter_body, 1).subscribe(res => {
-      this.propertyService.response = res;
-      this.properties = this.propertyService.response.data;
-      this.pageIndex = 1;
+    this.propertyService.getProperties(this.pagination_filter_body, 1).subscribe({
+      next: res => {
+        this.propertyService.response = res;
+        this.properties = this.propertyService.response.data;
+        this.pageIndex = 1;
+      },
+      error: error => {
+        this.router.navigate(['error']);
+      }
     })
   }
 
