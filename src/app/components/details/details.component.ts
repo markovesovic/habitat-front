@@ -13,9 +13,9 @@ export class DetailsComponent implements OnInit {
   config: SwiperConfigInterface = {
     a11y: undefined,
     direction: 'horizontal',
-    slidesPerView: 3,
+    slidesPerView: 1,
     slideToClickedSlide: true,
-    mousewheel: true,
+    mousewheel: false,
     scrollbar: false,
     watchSlidesProgress: true,
     navigation: true,
@@ -24,9 +24,9 @@ export class DetailsComponent implements OnInit {
     centeredSlides: true,
     loop: true,
     roundLengths: true,
-    slidesOffsetBefore: 100,
-    slidesOffsetAfter: 100,
-    spaceBetween: 50,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0,
+    spaceBetween: 0,
     breakpoints: {
       // when window width is >= 320px
       320: {

@@ -241,8 +241,7 @@
                         </div>-->
                         <swiper fxFlex="auto" [config]="config" (indexChange)="onIndexChange($event)">
                             <div *ngFor="let image of property.images" class="swiper-slide cursor-pointer">
-                                <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill class="mx-2">
-                                    <!-- Your content goes here -->
+                                <div fxLayout="column" fxLayoutAlign="center left" fxFlexFill class="mx-2">
                                     <!-- <p>{{image.picture_file_name}}</p> -->
                                     <div class="properties-card__img swiper-slide">
                                         <img src="https://habitat.rs/system/images/pictures/5e8f/2a87/622f/db00/014f/e57e/large/_MG_9073.JPG?1586440839" alt="">
