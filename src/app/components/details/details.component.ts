@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { PropertyService } from 'src/app/services/property.service';
@@ -39,7 +40,19 @@ export class DetailsComponent implements OnInit {
   constructor(
     private propertyService: PropertyService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private meta: Meta,
+    private title: Title
+  ) { 
+    this.meta.addTags([
+      { name: 'author', content: "Habitat company" }, 
+      { name: 'keywords', content: "Property, Real Estate, Flat, House, Location, Price, Garage, Pool, Elevator, Security, Building" },
+      { name: 'viewport', contetn: 'width=device-width, initial-scale=1'},
+      { name: 'description', content: "Everything you need to know about particular property. You get property pictures/images and other information such as price, size, rent/sale, yard, number of bedrooms/bathrooms, furnishment type, floor type, distribution type, parking, terrace, elevator, swimming pool, security." }
+    ])
+
+    this.title.setTitle("Property Details Page")
+  }
 
   ngOnInit(): void {
     if ((typeof this.propertyService.response) == "undefined")

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { RequestBody } from 'src/app/models/request-body';
@@ -52,8 +53,19 @@ export class PropertiesComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private meta: Meta,
+    private title: Title
+  ) { 
+    this.meta.addTags([
+      { name: 'author', content: "Habitat company" }, 
+      { name: 'keywords', content: "Property, Real Estate, Flat, House, Location, Price, Garage, Pool, Elevator" },
+      { name: 'viewport', contetn: 'width=device-width, initial-scale=1'},
+      { name: 'description', content: "All properties at one place. Filtering properties to your needs. Look at properties' price, location, size, number of bedrooms and other." }
+    ])
+
+    this.title.setTitle("Property Catalogue Page")
+  }
 
   ngOnInit(): void {
     if (!this.propertyService.response)
