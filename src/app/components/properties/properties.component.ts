@@ -56,11 +56,11 @@ export class PropertiesComponent implements OnInit {
     private router: Router,
     private meta: Meta,
     private title: Title
-  ) { 
+  ) {
     this.meta.addTags([
-      { name: 'author', content: "Habitat company" }, 
+      { name: 'author', content: "Habitat company" },
       { name: 'keywords', content: "Property, Real Estate, Flat, House, Location, Price, Garage, Pool, Elevator" },
-      { name: 'viewport', contetn: 'width=device-width, initial-scale=1'},
+      { name: 'viewport', contetn: 'width=device-width, initial-scale=1' },
       { name: 'description', content: "All properties at one place. Filtering properties to your needs. Look at properties' price, location, size, number of bedrooms and other." }
     ])
 
@@ -68,30 +68,35 @@ export class PropertiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.propertyService.response)
-      this.propertyService.responseObservable$.subscribe({
-        next: () => {
-          this.properties = this.propertyService.response.data;
-          this.count = this.propertyService.response.count;
-          this.datasource = this.properties;
-          this.pageIndex = this.propertyService.response.page;
-          this.pageSize = this.propertyService.response.perPage;
-          this.length = this.count;
-        },
-        error: error => {
-          this.router.navigate(['error'])
-        }
-      });
-    else {
-      this.properties = this.propertyService.response.data;
-      this.count = this.propertyService.response.count;
-      this.datasource = this.properties;
-      this.pageIndex = this.propertyService.response.page;
-      this.pageSize = this.propertyService.response.perPage;
-      this.length = this.count;
+    let page = 1
+    if(localStorage.getItem('home_filter')){
+      this.filter_body = JSON.parse(localStorage.getItem('home_filter')!)
+      localStorage.clear()
     }
+    else if(JSON.stringify(this.propertyService.filter_body) != JSON.stringify(new RequestBody()) && (typeof this.propertyService.filter_body != 'undefined')){
+      this.filter_body = this.propertyService.filter_body
+      page = this.propertyService.response.page;
+    }else{
+      this.filter_body = new RequestBody()
+    }
+    this.filter_body =  localStorage.getItem('home_filter') ? JSON.parse(localStorage.getItem('home_filter')!) : new RequestBody();
+    this.propertyService.getProperties(this.filter_body, page).subscribe({
+      next: res => {
+            this.propertyService.response = res
+            this.properties = this.propertyService.response.data;
+            this.count = this.propertyService.response.count;
+            this.datasource = this.properties;
+            this.pageIndex = this.propertyService.response.page;
+            this.pageSize = this.propertyService.response.perPage;
+            this.length = this.count;
 
-    this.filter_body = this.propertyService.filter_body;
+            this.propertyService.filter_body = this.filter_body
+          },
+          error: error => {
+            this.router.navigate(['error'])
+          }
+    })
+
     this.pagination_filter_body = JSON.parse(JSON.stringify(this.filter_body)); // deep copy   
   }
 
@@ -107,6 +112,7 @@ export class PropertiesComponent implements OnInit {
         this.length = this.count;
 
         this.pagination_filter_body = JSON.parse(JSON.stringify(this.filter_body)); // deep copy
+        this.propertyService.filter_body = this.filter_body
       },
       error: error => {
         this.router.navigate(['error']);
@@ -151,12 +157,6 @@ export class PropertiesComponent implements OnInit {
   }
 
   public checkDetails(property: any) {
-    this.router.navigate(['details', property._id.$oid ? property._id.$oid : property._id]);
+    this.router.navigate(['./details', property.public_id]);
   }
-
-  // public checkDetailsMap(property: any) {
-  //   const link = this.router.serializeUrl(this.router.createUrlTree(['details', property._id.$oid ? property._id.$oid : property._id]));
-  //   window.open(link, '_blank');
-  //   // this.router.navigate([]).then(result => {  window.open(`details/${property._id.$oid ? property._id.$oid : property._id}`, '_blank'); });
-  // }
 }

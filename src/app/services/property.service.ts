@@ -18,14 +18,9 @@ export class PropertyService {
 
   filter_body: RequestBody;
   response: any;
-  responseSubject: Subject<any> = new Subject<any>();
-  responseObservable$ = this.responseSubject.asObservable();
 
   errorMessage: String = "An unknown error occurred! :("
 
-  emitLoadDataSuccess() {
-    this.responseSubject.next(void 0);
-  }
 
   getSingleProperty(id : String) {
     const url = `${environment.apiUrl}/property/${id}`;
@@ -61,23 +56,5 @@ export class PropertyService {
     }
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
-  }
-
-
-  Init(): Promise<any> {
-    this.filter_body = new RequestBody()
-    return new Promise<void>(resolve => {
-      this.getProperties(this.filter_body, 1).subscribe({
-        next: data => {
-          this.response = data;
-          // console.log("load data...");
-          this.emitLoadDataSuccess(); // here we are emitting event
-        },
-        error: error => {
-          this.router.navigate(['error'])
-        }
-      });
-      resolve();
-    });
   }
 }

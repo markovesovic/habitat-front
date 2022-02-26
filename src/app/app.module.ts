@@ -11,8 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 
-
-import { PropertyService } from './services/property.service';
+import { ApiDependentModule } from './modules/api-dependent/api-dependent.module';
 
 import { HomeComponent } from './components/home/home.component';
 import { DetailsComponent } from './components/details/details.component';
@@ -22,6 +21,7 @@ import { SwiperModule, SwiperConfigInterface, SWIPER_CONFIG } from 'ngx-swiper-w
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AboutComponent } from './components/about/about.component';
+import { PropertyService } from './services/property.service';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -34,25 +34,42 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'properties', component: PropertiesComponent },
-  { path: 'details/:id', component: DetailsComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'error', component: ErrorComponent }
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  // { 
+  //   path: '**', 
+  //   component: ErrorComponent 
+  // },
+  {
+    path: 'error',
+    component: ErrorComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'properties',
+    loadChildren: () => import('./modules/api-dependent/api-dependent.module').then( m => m.ApiDependentModule )
+  }
 ];
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    DetailsComponent,
     ErrorComponent,
-    PropertiesComponent,
+    HomeComponent,
+    AboutComponent,
     HeaderComponent,
-    FooterComponent,
-    AboutComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -65,16 +82,12 @@ const routes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyATykmHVGVUPt2_cWgV-sfihnadOj7IzaI'
     }),
-    SwiperModule
+    SwiperModule,
+    ApiDependentModule
   ],
-  providers: [PropertyService,
-    {
-        provide: APP_INITIALIZER,
-        useFactory: (propertyService: PropertyService) =>
-            () => propertyService.Init(),
-        deps: [PropertyService],
-        multi: true
-    }],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private propertyService: PropertyService) {}
+}

@@ -12,7 +12,7 @@
     <div class="post-main">
       <div class="post-images">
         <swiper fxFlex="auto" [config]="config" (indexChange)="onIndexChange($event)">
-          <div *ngFor="let image of property.private_images" class="swiper-slide cursor-pointer">
+          <div *ngFor="let image of property.images" class="swiper-slide cursor-pointer">
               <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill class="mx-2">
                   <!-- Your content goes here -->
                   <!-- <p>{{image.picture_file_name}}</p> -->

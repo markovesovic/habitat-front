@@ -34,17 +34,8 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    this.propertyService.getProperties(this.filter, 1).subscribe({
-      next: res => {
-        this.propertyService.response = res;
-        this.propertyService.filter_body = this.filter;
-        this.router.navigate(['properties']);
-      },
-      error: error => {
-        this.router.navigate(['error']);
-      }
-    }
-    )
+    this.router.navigate(['properties']);
+    localStorage.setItem('home_filter', JSON.stringify(this.filter));
   }
 
 }

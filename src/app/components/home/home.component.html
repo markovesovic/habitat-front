@@ -16,7 +16,7 @@
           </div>
           <div class="circle-menu-filter">
             <h1>Find your home</h1>
-            <form action="/properties-map.html" class="circle-menu-filter__form" method="post" id="propertyform">
+            <div action="/properties-map.html" class="circle-menu-filter__form" method="post" id="propertyform">
               <label for="property">Type of building:</label>
               <select id="property" name="propertylist" form="propertyform" [(ngModel)]="filter.params.building_type" [ngModelOptions]="{standalone: true}">
                 <option value="residential">Residential</option>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <button type="submit" class="property-search-btn btn-hover" (click)="search()">Search</button>
-            </form>
+          </div>
           </div>
         </div>
       </div>
