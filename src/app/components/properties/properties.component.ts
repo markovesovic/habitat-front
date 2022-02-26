@@ -79,7 +79,6 @@ export class PropertiesComponent implements OnInit {
     }else{
       this.filter_body = new RequestBody()
     }
-    this.filter_body =  localStorage.getItem('home_filter') ? JSON.parse(localStorage.getItem('home_filter')!) : new RequestBody();
     this.propertyService.getProperties(this.filter_body, page).subscribe({
       next: res => {
             this.propertyService.response = res

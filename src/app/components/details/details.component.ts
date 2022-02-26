@@ -55,21 +55,15 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ((typeof this.propertyService.response) == "undefined")
-      this.propertyService.getSingleProperty(this.route.snapshot.paramMap.get('id')!).subscribe({
-        next: (res: any) => {
-          this.property = res.property;
-        },
-        error: (error : any) => {
-          this.propertyService.errorMessage = "The property you are looking for is not on the market currently."
-          this.router.navigate(['error']);
-        }
-      })
-    else {
-      this.property = this.propertyService.response.data.filter((el: any) => {
-        if (el._id == this.route.snapshot.paramMap.get('id')) return el;
-      })[0];
-    }
+    this.propertyService.getSingleProperty(this.route.snapshot.paramMap.get('id')!).subscribe({
+      next: (res: any) => {
+        this.property = res.property;
+      },
+      error: (error : any) => {
+        this.propertyService.errorMessage = "The property you are looking for is not on the market currently."
+        this.router.navigate(['error']);
+      }
+    })
   }
 
   public onIndexChange(index: number) {

@@ -13,7 +13,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 
 const routes: Routes = [
   {
-    path: '', component: PropertiesComponent
+    path: 'properties', component: PropertiesComponent
   },
   { 
     path: 'details/:id', component: DetailsComponent
