@@ -23,7 +23,8 @@ export class PropertyService {
 
 
   getSingleProperty(id : String) {
-    const url = `${environment.apiUrl}/property/${id}`;
+    const url = `http://habitat-app-be-test-1.herokuapp.com/property/${id}`
+    // const url = `${environment.apiUrl}/property/${id}`;
     return this.http.get<any>(url)
       .pipe(catchError(error => this.handleError(error)));
   }
@@ -32,8 +33,9 @@ export class PropertyService {
     if (filter.params.furnishment != null && filter.params.furnishment.en == null) {
       filter.params.furnishment = null; // quick fix
     }
-
-    const url = `${environment.apiUrl}/properties`;
+    
+    const url = `http://habitat-app-be-test-1.herokuapp.com/properties`
+    // const url = `${environment.apiUrl}/properties`;
     let params_object = new HttpParams();
 
     params_object = params_object.append('page', page);

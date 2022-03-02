@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RequestBody } from 'src/app/models/request-body';
-import { PropertyService } from 'src/app/services/property.service';
-
 
 @Component({
   selector: 'app-home',
@@ -14,7 +12,6 @@ export class HomeComponent implements OnInit {
   filter = new RequestBody();
 
   constructor(
-    private propertyService: PropertyService,
     private router: Router,
     private meta: Meta,
     private title: Title

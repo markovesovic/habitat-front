@@ -13,6 +13,9 @@ import { PropertyService } from 'src/app/services/property.service';
   styleUrls: ['./properties.component.css']
 })
 export class PropertiesComponent implements OnInit {
+
+  loading: boolean;
+
   properties: any;
   count: number;
 
@@ -79,6 +82,9 @@ export class PropertiesComponent implements OnInit {
     }else{
       this.filter_body = new RequestBody()
     }
+
+    this.loading = true;
+
     this.propertyService.getProperties(this.filter_body, page).subscribe({
       next: res => {
             this.propertyService.response = res
@@ -90,6 +96,7 @@ export class PropertiesComponent implements OnInit {
             this.length = this.count;
 
             this.propertyService.filter_body = this.filter_body
+            this.loading = false;
           },
           error: error => {
             this.router.navigate(['error'])
@@ -100,6 +107,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   search() {
+    this.loading = true
     this.propertyService.getProperties(this.filter_body, 1).subscribe({
       next: res => {
         this.propertyService.response = res;
@@ -112,6 +120,7 @@ export class PropertiesComponent implements OnInit {
 
         this.pagination_filter_body = JSON.parse(JSON.stringify(this.filter_body)); // deep copy
         this.propertyService.filter_body = this.filter_body
+        this.loading = false
       },
       error: error => {
         this.router.navigate(['error']);
@@ -120,6 +129,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   public getServerData(event: PageEvent) {
+    this.loading = true
     this.propertyService.getProperties(this.pagination_filter_body, event.pageIndex + 1).subscribe({
       next: res => {
         this.propertyService.response = res;
@@ -129,6 +139,8 @@ export class PropertiesComponent implements OnInit {
         this.pageIndex = this.propertyService.response.page;
         this.pageSize = this.propertyService.response.perPage;
         this.length = this.count;
+
+        this.loading = false
       },
       error: error => {
         this.router.navigate(['error']);
@@ -138,12 +150,14 @@ export class PropertiesComponent implements OnInit {
   }
 
   public sortSearch(event: any) {
+    this.loading = true
     this.pagination_filter_body.sort = event.target.value;
     this.propertyService.getProperties(this.pagination_filter_body, 1).subscribe({
       next: res => {
         this.propertyService.response = res;
         this.properties = this.propertyService.response.data;
         this.pageIndex = 1;
+        this.loading = false
       },
       error: error => {
         this.router.navigate(['error']);

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AgmCoreModule } from '@agm/core';
 import { SwiperModule } from 'ngx-swiper-wrapper';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
     ApiDependentRoutingModule,
     FormsModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyATykmHVGVUPt2_cWgV-sfihnadOj7IzaI'
     }),

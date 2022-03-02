@@ -17,7 +17,7 @@
                   <!-- Your content goes here -->
                   <!-- <p>{{image.picture_file_name}}</p> -->
                   <div class="properties-card__img swiper-slide">
-                      <img src="https://image.shutterstock.com/image-photo/modern-interior-design-living-room-260nw-1773665390.jpg" alt="">
+                      <img src="https://image.shutterstock.com/image-photo/modern-interior-design-living-room-260nw-1773665390.jpg" alt="Property image">
                   </div>
               </div>
           </div>
@@ -57,9 +57,9 @@
       <div class="post-share">
         <h3 class="post-share__title">Share this property</h3>
         <div class="post-share__ul">
-          <a (click)="share(1)" class="post-share__link"></a>
-          <a (click)="share(2)" class="post-share__link"></a>
-          <a (click)="share(3)" class="post-share__link"></a>
+          <a href="https://api.whatsapp.com/send?text=Check out this property: ${window.location.origin + this.router.url}" target="blank" (click)="share(1)" class="post-share__link"></a>
+          <a href="viber://forward?text=Check out this property: ${window.location.origin + this.router.url}" target="blank" (click)="share(2)" class="post-share__link"></a>
+          <a href="https://t.me/share/url?url=https://habitat.rs&text=Check out this property: ${window.location.origin + this.router.url}" target="blank" (click)="share(3)" class="post-share__link"></a>
         </div>
       </div>
     </div>

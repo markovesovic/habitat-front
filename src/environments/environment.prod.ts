@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://???'
+  apiUrl: 'habitat-app-be-test-1.herokuapp.com'
 };

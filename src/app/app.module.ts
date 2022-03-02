@@ -22,6 +22,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AboutComponent } from './components/about/about.component';
 import { PropertyService } from './services/property.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {

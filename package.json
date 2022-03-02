@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build.stage": "ng build --configuration stage",
     "build": "ng build --configuration development",
     "build.prod": "ng build --configuration production && tar -zcvf archive.tar.gz dist/prod/*",
     "watch": "ng build --watch --configuration development",

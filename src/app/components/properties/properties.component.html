@@ -15,7 +15,7 @@
                 <agm-info-window>
                     <strong>{{property.full_address}}</strong>
                     <br>
-                    <a [routerLink]="['/details/'+property.public_id]" target="_blank">Click here for property details!</a>
+                    <a href="/details/'+property.public_id" [routerLink]="['/details/'+property.public_id]" target="_blank">Click here for property details!</a>
                   </agm-info-window>
             </agm-marker>
         </div>
@@ -61,9 +61,9 @@
 
                 <select id="property-building-type" name="2" [(ngModel)]="filter_body.params.building_type">
                     <option value=null disabled selected>Choose building type</option>
-                    <option value="residential">Residential ()</option>
-                    <option value="office">Office ()</option>
-                    <option value="retail">Retail ()</option>
+                    <option value="residential">Residential</option>
+                    <option value="office">Office</option>
+                    <option value="retail">Retail</option>
                     <option value="industrial">Industrial and Warehouse ()</option>
                 </select>
 
@@ -80,22 +80,22 @@
                     <div class="residential-features">
                         <select name="4" id="residential-feature" [(ngModel)]="filter_body.params.bedrooms">
                             <option value=null disabled selected>Bedrooms</option>
-                            <option [ngValue]=1>1 ()</option>
-                            <option [ngValue]=2>2 ()</option>
-                            <option [ngValue]=3>3 ()</option>
-                            <option [ngValue]=4>4 ()</option>
-                            <option [ngValue]=5>5 ()</option>
+                            <option [ngValue]=1>1</option>
+                            <option [ngValue]=2>2</option>
+                            <option [ngValue]=3>3</option>
+                            <option [ngValue]=4>4</option>
+                            <option [ngValue]=5>5</option>
                         </select>
                     </div>
 
                     <div class="residential-features">
                         <select name="5" id="residential-feature" [(ngModel)]="filter_body.params.bathrooms">
                             <option value=null disabled selected>Bathrooms</option>
-                            <option [ngValue]=1>1 ()</option>
-                            <option [ngValue]=2>2 ()</option>
-                            <option [ngValue]=3>3 ()</option>
-                            <option [ngValue]=4>4 ()</option>
-                            <option [ngValue]=5>5 ()</option>
+                            <option [ngValue]=1>1</option>
+                            <option [ngValue]=2>2</option>
+                            <option [ngValue]=3>3</option>
+                            <option [ngValue]=4>4</option>
+                            <option [ngValue]=5>5</option>
                         </select>
                     </div>
 
@@ -111,10 +111,10 @@
                     <div class="residential-features">
                         <select name="6" id="residential-feature" [(ngModel)]="filter_body.params.floor_type">
                             <option value=null disabled selected>Floor type</option>
-                            <option value="ground">Ground floor ()</option>
-                            <option value="mezzanine">Mezzanine floor (1st floor) ()</option>
-                            <option value="middle">Middle floors ()</option>
-                            <option value="top">Top floors ()</option>
+                            <option value="ground">Ground floor</option>
+                            <option value="mezzanine">Mezzanine floor (1st floor)</option>
+                            <option value="middle">Middle floors</option>
+                            <option value="top">Top floors</option>
                         </select>
                     </div>
 
@@ -125,18 +125,18 @@
                     <div class="office-features">
                         <select name="7" id="office-feature" [(ngModel)]="filter_body.params.distribution">
                             <option value=null disabled selected>Distribution</option>
-                            <option value="">Open plan ()</option>
-                            <option value="walled">Walled ()</option>
+                            <option value="">Open plan</option>
+                            <option value="walled">Walled</option>
                         </select>
                     </div>
 
                     <div class="office-features">
                         <select name="" id="office-feature" [(ngModel)]="filter_body.params.floor_type">
                             <option value="" disabled selected>Floor type</option>
-                            <option value="ground">Ground floor ()</option>
-                            <option value="mezzanine">Mezzanine floor (1st floor) ()</option>
-                            <option value="middle">Middle floors ()</option>
-                            <option value="top">Top floors ()</option>
+                            <option value="ground">Ground floor</option>
+                            <option value="mezzanine">Mezzanine floor (1st floor)</option>
+                            <option value="middle">Middle floors</option>
+                            <option value="top">Top floors</option>
                         </select>
                     </div>
 
@@ -146,42 +146,42 @@
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.elevator">
-                        <label for="elevator">Elevator ()</label>
+                        <label for="elevator">Elevator</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.garage">
-                        <label for="garage">Garage ()</label>
+                        <label for="garage">Garage</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.parking">
-                        <label for="parking">Parking ()</label>
+                        <label for="parking">Parking</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.terrace">
-                        <label for="terrace">Terrace ()</label>
+                        <label for="terrace">Terrace</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.yard">
-                        <label for="yard">Yard ()</label>
+                        <label for="yard">Yard</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.swimming_pool">
-                        <label for="swimming_pool">Swimming pool ()</label>
+                        <label for="swimming_pool">Swimming pool</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.doorkeeper">
-                        <label for="doorkeeper">Doorkeeper ()</label>
+                        <label for="doorkeeper">Doorkeeper</label>
                     </div>
 
                     <div>
                         <input type="checkbox" id="" name="" [(ngModel)]="filter_body.params.building_security">
-                        <label for="building_security">Building security ()</label>
+                        <label for="building_security">Building security</label>
                     </div>
 
                 </div>
@@ -191,7 +191,7 @@
             </div>
         </aside>
 
-        <div class="properties">
+        <div class="properties" *ngIf="!loading">
 
             <div class="properties-heading" *ngIf="count>0">
                 <div class="properties-info__criteria">
@@ -215,6 +215,7 @@
                 <p>No properties found matching this criteria.</p>
             </div>
 
+            
 
             <div class="properties-cards">
                 <div *ngFor="let property of properties">
@@ -244,12 +245,12 @@
                                 <div fxLayout="column" fxLayoutAlign="center left" fxFlexFill class="mx-2">
                                     <!-- <p>{{image.picture_file_name}}</p> -->
                                     <div class="properties-card__img swiper-slide">
-                                        <img src="https://habitat.rs/system/images/pictures/5e8f/2a87/622f/db00/014f/e57e/large/_MG_9073.JPG?1586440839" alt="">
+                                        <img src="https://habitat.rs/system/images/pictures/5e8f/2a87/622f/db00/014f/e57e/large/_MG_9073.JPG?1586440839" alt="Property image failed loading">
                                     </div>
                                 </div>
                             </div>
                         </swiper>
-                        <a (click)="checkDetails(property)" class="properties-card-link-block" target="_blank">
+                        <a href="javascript: this.router.navigate(['./details', property.public_id]);" (click)="checkDetails(property)" class="properties-card-link-block">
                             <div class="properties-card-location">
                                 <span class="properties-card-location__name">{{property.city_area}}</span>
                                 <span class="properties-card-location__price">{{property.price}} €</span>
@@ -285,6 +286,7 @@
             </div>
 
         </div>
+        <mat-spinner *ngIf="loading" style="margin:0 auto; margin-top: 20%;"></mat-spinner>
     </div>
 </body>
 
